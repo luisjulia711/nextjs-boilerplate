@@ -1,226 +1,600 @@
-export default function Home() {
-  return (
-    <main className="min-h-screen bg-white text-gray-900">
-      {/* Cabeçalho */}
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">OpenBrooks</h1>
-            <p className="text-xs text-gray-500">
-              Serviços profissionais em Angola
-            </p>
-          </div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-          <nav className="hidden gap-6 text-sm font-medium md:flex">
-            <a href="#servicos" className="hover:text-gray-600">
-              Serviços
-            </a>
-            <a href="#como-funciona" className="hover:text-gray-600">
-              Como funciona
-            </a>
-            <a href="#profissionais" className="hover:text-gray-600">
-              Profissionais
-            </a>
-          </nav>
+  <title>OpenBrooks</title>
 
-          <a
-            href="#profissional"
-            className="rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-800"
-          >
-            Sou profissional
-          </a>
-        </div>
-      </header>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-      {/* Hero */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center md:py-28">
-          <div className="mx-auto max-w-3xl">
-            <span className="inline-block rounded-full border bg-white px-4 py-2 text-sm text-gray-600">
-              Uma nova forma de encontrar serviços
-            </span>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-            <h2 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
-              Encontre profissionais para resolver o que precisa.
-            </h2>
+    body {
+      background: #f7f8fa;
+      color: #111827;
+    }
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-              Encontre profissionais de confiança em Angola, compare opções e
-              entre em contacto de forma simples e rápida.
-            </p>
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-            {/* Pesquisa */}
-            <div className="mx-auto mt-10 max-w-3xl rounded-2xl border bg-white p-3 shadow-sm">
-              <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto]">
-                <input
-                  type="text"
-                  placeholder="O que você precisa?"
-                  className="rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-gray-300"
-                />
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #111827;
+    }
 
-                <input
-                  type="text"
-                  placeholder="Onde? Ex.: Luanda"
-                  className="rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-gray-300"
-                />
+    nav {
+      display: flex;
+      gap: 10px;
+    }
 
-                <button className="rounded-xl bg-black px-7 py-3 font-semibold text-white hover:bg-gray-800">
-                  Pesquisar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-      {/* Categorias */}
-      <section id="servicos" className="mx-auto max-w-7xl px-6 py-20">
-        <div className="mb-10">
-          <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
-            Encontre ajuda
-          </p>
+    .btn-primary {
+      background: #111827;
+      color: white;
+    }
 
-          <h2 className="mt-2 text-3xl font-bold">
-            Serviços populares
-          </h2>
-        </div>
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #111827;
+    }
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["🔌", "Eletricistas", "Instalações e reparações elétricas"],
-            ["🚰", "Canalizadores", "Água, torneiras e canalização"],
-            ["❄️", "Ar condicionado", "Instalação e manutenção"],
-            ["🛠️", "Manutenção", "Reparações e serviços gerais"],
-            ["💻", "Informática", "Computadores e assistência técnica"],
-            ["🏗️", "Construção", "Obras, reformas e acabamentos"],
-            ["🧹", "Limpeza", "Limpeza residencial e comercial"],
-            ["🚗", "Mecânica", "Reparação e manutenção automóvel"],
-          ].map(([icon, title, description]) => (
-            <button
-              key={title}
-              className="rounded-2xl border bg-white p-6 text-left transition hover:-translate-y-1 hover:shadow-md"
-            >
-              <div className="text-3xl">{icon}</div>
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 20px;
+    }
 
-              <h3 className="mt-5 text-lg font-bold">{title}</h3>
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
 
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                {description}
-              </p>
-            </button>
-          ))}
-        </div>
-      </section>
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
 
-      {/* Como funciona */}
-      <section id="como-funciona" className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
-              Simples e rápido
-            </p>
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #6b7280;
+      font-size: 18px;
+      line-height: 1.6;
+    }
 
-            <h2 className="mt-2 text-3xl font-bold">
-              Como funciona?
-            </h2>
-          </div>
+    .hero button {
+      margin-top: 30px;
+      font-size: 16px;
+    }
 
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {[
-              [
-                "01",
-                "Procure",
-                "Escolha o serviço que você precisa e indique a sua localização.",
-              ],
-              [
-                "02",
-                "Escolha",
-                "Veja profissionais, serviços, avaliações e informações.",
-              ],
-              [
-                "03",
-                "Contacte",
-                "Entre em contacto e solicite um orçamento.",
-              ],
-            ].map(([number, title, description]) => (
-              <div
-                key={number}
-                className="rounded-2xl border bg-white p-8"
-              >
-                <span className="text-sm font-bold text-gray-400">
-                  {number}
-                </span>
+    .page {
+      display: none;
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
 
-                <h3 className="mt-5 text-xl font-bold">{title}</h3>
+    .page.active {
+      display: block;
+    }
 
-                <p className="mt-3 leading-7 text-gray-600">
-                  {description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    .page h2 {
+      margin-bottom: 10px;
+    }
 
-      {/* Profissionais */}
-      <section id="profissionais" className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid items-center gap-12 md:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
-              Para profissionais
-            </p>
+    .page p {
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
 
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              Tem uma profissão ou negócio?
-            </h2>
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
 
-            <p className="mt-5 leading-8 text-gray-600">
-              Crie o seu perfil no OpenBrooks, apresente os seus serviços e
-              encontre novos clientes.
-            </p>
+    .form-button {
+      width: 100%;
+      margin-top: 5px;
+    }
 
-            <a
-              id="profissional"
-              href="#cadastro"
-              className="mt-8 inline-block rounded-full bg-black px-6 py-3 font-semibold text-white hover:bg-gray-800"
-            >
-              Quero ser profissional
-            </a>
-          </div>
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
 
-          <div className="rounded-3xl bg-gray-900 p-8 text-white">
-            <p className="text-sm text-gray-400">OPENBROOKS</p>
+    .dashboard {
+      max-width: 900px;
+      margin: 40px auto;
+    }
 
-            <h3 className="mt-4 text-2xl font-bold">
-              Mostre o seu trabalho.
-            </h3>
+    .dashboard-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
 
-            <p className="mt-4 leading-7 text-gray-300">
-              Tenha um perfil profissional, receba pedidos e construa a sua
-              reputação através das avaliações dos clientes.
-            </p>
-          </div>
-        </div>
-      </section>
+    .dashboard-card h2 {
+      margin-bottom: 10px;
+    }
 
-      {/* Rodapé */}
-      <footer className="border-t">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-gray-500 md:flex-row md:items-center md:justify-between">
-          <p>© 2026 OpenBrooks. Todos os direitos reservados.</p>
+    .dashboard-card p {
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
 
-          <div className="flex gap-5">
-            <a href="#" className="hover:text-gray-900">
-              Sobre
-            </a>
-            <a href="#" className="hover:text-gray-900">
-              Contacto
-            </a>
-            <a href="#" className="hover:text-gray-900">
-              Privacidade
-            </a>
-          </div>
-        </div>
-      </footer>
-    </main>
-  );
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      header {
+        padding: 15px 20px;
+      }
+
+      nav button {
+        padding: 9px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">OpenBrooks</div>
+
+  <nav id="navigation">
+    <button class="btn-secondary" onclick="mostrarPagina('inicio')">
+      Início
+    </button>
+
+    <button class="btn-secondary" onclick="mostrarPagina('login')">
+      Entrar
+    </button>
+
+    <button class="btn-primary" onclick="mostrarPagina('cadastro')">
+      Criar conta
+    </button>
+  </nav>
+
+</header>
+
+
+<!-- INÍCIO -->
+
+<section id="inicio" class="page active">
+
+  <div class="hero">
+
+    <h1>Bem-vindo ao OpenBrooks</h1>
+
+    <p>
+      Uma plataforma criada para conectar pessoas,
+      ideias e oportunidades em um só lugar.
+    </p>
+
+    <button
+      class="btn-primary"
+      onclick="mostrarPagina('cadastro')">
+      Começar agora
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- CADASTRO -->
+
+<section id="cadastro" class="page">
+
+  <h2>Criar conta</h2>
+
+  <p>
+    Crie sua conta gratuitamente no OpenBrooks.
+  </p>
+
+  <form onsubmit="criarConta(event)">
+
+    <input
+      type="text"
+      id="nome"
+      placeholder="Seu nome"
+      required>
+
+    <input
+      type="email"
+      id="emailCadastro"
+      placeholder="Seu e-mail"
+      required>
+
+    <input
+      type="password"
+      id="senhaCadastro"
+      placeholder="Palavra-passe"
+      minlength="6"
+      required>
+
+    <button
+      class="btn-primary form-button"
+      type="submit">
+      Criar conta
+    </button>
+
+  </form>
+
+  <div id="cadastroMensagem" class="message"></div>
+
+  <br>
+
+  <button
+    class="btn-secondary"
+    onclick="mostrarPagina('login')">
+    Já tenho uma conta
+  </button>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+  <h2>Entrar</h2>
+
+  <p>
+    Entre na sua conta OpenBrooks.
+  </p>
+
+  <form onsubmit="entrar(event)">
+
+    <input
+      type="email"
+      id="emailLogin"
+      placeholder="Seu e-mail"
+      required>
+
+    <input
+      type="password"
+      id="senhaLogin"
+      placeholder="Palavra-passe"
+      required>
+
+    <button
+      class="btn-primary form-button"
+      type="submit">
+      Entrar
+    </button>
+
+  </form>
+
+  <div id="loginMensagem" class="message"></div>
+
+  <br>
+
+  <button
+    class="btn-secondary"
+    onclick="mostrarPagina('cadastro')">
+    Criar nova conta
+  </button>
+
+</section>
+
+
+<!-- PAINEL -->
+
+<section id="painel" class="page">
+
+  <div class="dashboard">
+
+    <div class="dashboard-card">
+
+      <h2>Seu painel</h2>
+
+      <p id="boasVindas">
+        Bem-vindo ao OpenBrooks.
+      </p>
+
+      <button
+        class="btn-primary"
+        onclick="sair()">
+        Sair da conta
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+  © 2026 OpenBrooks. Todos os direitos reservados.
+</footer>
+
+
+<script>
+
+  /* ================================
+     CONFIGURAÇÃO SUPABASE
+  ================================= */
+
+  const SUPABASE_URL = "https://openbrooks.supabase.co";
+
+  const SUPABASE_ANON_KEY = "chave-publica-do-openbrooks";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+
+  /* ================================
+     NAVEGAÇÃO
+  ================================= */
+
+  function mostrarPagina(pagina) {
+
+    document
+      .querySelectorAll(".page")
+      .forEach(function(elemento) {
+
+        elemento.classList.remove("active");
+
+      });
+
+    document
+      .getElementById(pagina)
+      .classList.add("active");
+
+    window.scrollTo(0, 0);
+  }
+
+
+  /* ================================
+     CRIAR CONTA
+  ================================= */
+
+  async function criarConta(event) {
+
+    event.preventDefault();
+
+    const nome =
+      document.getElementById("nome").value;
+
+    const email =
+      document.getElementById("emailCadastro").value;
+
+    const senha =
+      document.getElementById("senhaCadastro").value;
+
+    const mensagem =
+      document.getElementById("cadastroMensagem");
+
+    mensagem.textContent =
+      "Criando sua conta...";
+
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+
+        email: email,
+
+        password: senha,
+
+        options: {
+
+          data: {
+            nome: nome
+          }
+
         }
+
+      });
+
+
+    if (error) {
+
+      mensagem.textContent =
+        "Erro: " + error.message;
+
+      return;
+    }
+
+
+    mensagem.textContent =
+      "Conta criada! Verifique seu e-mail para confirmar a conta.";
+
+  }
+
+
+  /* ================================
+     LOGIN
+  ================================= */
+
+  async function entrar(event) {
+
+    event.preventDefault();
+
+    const email =
+      document.getElementById("emailLogin").value;
+
+    const senha =
+      document.getElementById("senhaLogin").value;
+
+    const mensagem =
+      document.getElementById("loginMensagem");
+
+    mensagem.textContent =
+      "Entrando...";
+
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email: email,
+
+        password: senha
+
+      });
+
+
+    if (error) {
+
+      mensagem.textContent =
+        "E-mail ou palavra-passe incorretos.";
+
+      return;
+    }
+
+
+    mensagem.textContent = "";
+
+    mostrarPainel(data.user);
+
+  }
+
+
+  /* ================================
+     MOSTRAR PAINEL
+  ================================= */
+
+  function mostrarPainel(user) {
+
+    mostrarPagina("painel");
+
+    const nome =
+      user.user_metadata?.nome ||
+      user.email ||
+      "Usuário";
+
+    document
+      .getElementById("boasVindas")
+      .textContent =
+      "Bem-vindo, " + nome + "!";
+
+    document
+      .getElementById("navigation")
+      .innerHTML = `
+
+        <button
+          class="btn-primary"
+          onclick="mostrarPagina('painel')">
+          Meu painel
+        </button>
+
+        <button
+          class="btn-secondary"
+          onclick="sair()">
+          Sair
+        </button>
+
+      `;
+  }
+
+
+  /* ================================
+     SAIR
+  ================================= */
+
+  async function sair() {
+
+    await supabaseClient.auth.signOut();
+
+    document
+      .getElementById("navigation")
+      .innerHTML = `
+
+        <button
+          class="btn-secondary"
+          onclick="mostrarPagina('inicio')">
+          Início
+        </button>
+
+        <button
+          class="btn-secondary"
+          onclick="mostrarPagina('login')">
+          Entrar
+        </button>
+
+        <button
+          class="btn-primary"
+          onclick="mostrarPagina('cadastro')">
+          Criar conta
+        </button>
+
+      `;
+
+    mostrarPagina("inicio");
+  }
+
+
+  /* ================================
+     VERIFICAR SESSÃO
+  ================================= */
+
+  async function verificarUsuario() {
+
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
+
+
+    if (session?.user) {
+
+      mostrarPainel(session.user);
+
+    }
+
+  }
+
+
+  verificarUsuario();
+
+</script>
+
+</body>
+</html>
