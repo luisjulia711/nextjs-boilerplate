@@ -1,65 +1,226 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-white text-gray-900">
+      {/* Cabeçalho */}
+      <header className="border-b bg-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">OpenBrooks</h1>
+            <p className="text-xs text-gray-500">
+              Serviços profissionais em Angola
+            </p>
+          </div>
+
+          <nav className="hidden gap-6 text-sm font-medium md:flex">
+            <a href="#servicos" className="hover:text-gray-600">
+              Serviços
+            </a>
+            <a href="#como-funciona" className="hover:text-gray-600">
+              Como funciona
+            </a>
+            <a href="#profissionais" className="hover:text-gray-600">
+              Profissionais
+            </a>
+          </nav>
+
+          <a
+            href="#profissional"
+            className="rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-800"
+          >
+            Sou profissional
+          </a>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-6 py-20 text-center md:py-28">
+          <div className="mx-auto max-w-3xl">
+            <span className="inline-block rounded-full border bg-white px-4 py-2 text-sm text-gray-600">
+              Uma nova forma de encontrar serviços
+            </span>
+
+            <h2 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
+              Encontre profissionais para resolver o que precisa.
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
+              Encontre profissionais de confiança em Angola, compare opções e
+              entre em contacto de forma simples e rápida.
+            </p>
+
+            {/* Pesquisa */}
+            <div className="mx-auto mt-10 max-w-3xl rounded-2xl border bg-white p-3 shadow-sm">
+              <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto]">
+                <input
+                  type="text"
+                  placeholder="O que você precisa?"
+                  className="rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-gray-300"
+                />
+
+                <input
+                  type="text"
+                  placeholder="Onde? Ex.: Luanda"
+                  className="rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-gray-300"
+                />
+
+                <button className="rounded-xl bg-black px-7 py-3 font-semibold text-white hover:bg-gray-800">
+                  Pesquisar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categorias */}
+      <section id="servicos" className="mx-auto max-w-7xl px-6 py-20">
+        <div className="mb-10">
+          <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
+            Encontre ajuda
           </p>
+
+          <h2 className="mt-2 text-3xl font-bold">
+            Serviços populares
+          </h2>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["🔌", "Eletricistas", "Instalações e reparações elétricas"],
+            ["🚰", "Canalizadores", "Água, torneiras e canalização"],
+            ["❄️", "Ar condicionado", "Instalação e manutenção"],
+            ["🛠️", "Manutenção", "Reparações e serviços gerais"],
+            ["💻", "Informática", "Computadores e assistência técnica"],
+            ["🏗️", "Construção", "Obras, reformas e acabamentos"],
+            ["🧹", "Limpeza", "Limpeza residencial e comercial"],
+            ["🚗", "Mecânica", "Reparação e manutenção automóvel"],
+          ].map(([icon, title, description]) => (
+            <button
+              key={title}
+              className="rounded-2xl border bg-white p-6 text-left transition hover:-translate-y-1 hover:shadow-md"
+            >
+              <div className="text-3xl">{icon}</div>
+
+              <h3 className="mt-5 text-lg font-bold">{title}</h3>
+
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                {description}
+              </p>
+            </button>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Como funciona */}
+      <section id="como-funciona" className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
+              Simples e rápido
+            </p>
+
+            <h2 className="mt-2 text-3xl font-bold">
+              Como funciona?
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {[
+              [
+                "01",
+                "Procure",
+                "Escolha o serviço que você precisa e indique a sua localização.",
+              ],
+              [
+                "02",
+                "Escolha",
+                "Veja profissionais, serviços, avaliações e informações.",
+              ],
+              [
+                "03",
+                "Contacte",
+                "Entre em contacto e solicite um orçamento.",
+              ],
+            ].map(([number, title, description]) => (
+              <div
+                key={number}
+                className="rounded-2xl border bg-white p-8"
+              >
+                <span className="text-sm font-bold text-gray-400">
+                  {number}
+                </span>
+
+                <h3 className="mt-5 text-xl font-bold">{title}</h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  {description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Profissionais */}
+      <section id="profissionais" className="mx-auto max-w-7xl px-6 py-20">
+        <div className="grid items-center gap-12 md:grid-cols-2">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wider text-gray-500">
+              Para profissionais
+            </p>
+
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+              Tem uma profissão ou negócio?
+            </h2>
+
+            <p className="mt-5 leading-8 text-gray-600">
+              Crie o seu perfil no OpenBrooks, apresente os seus serviços e
+              encontre novos clientes.
+            </p>
+
+            <a
+              id="profissional"
+              href="#cadastro"
+              className="mt-8 inline-block rounded-full bg-black px-6 py-3 font-semibold text-white hover:bg-gray-800"
+            >
+              Quero ser profissional
+            </a>
+          </div>
+
+          <div className="rounded-3xl bg-gray-900 p-8 text-white">
+            <p className="text-sm text-gray-400">OPENBROOKS</p>
+
+            <h3 className="mt-4 text-2xl font-bold">
+              Mostre o seu trabalho.
+            </h3>
+
+            <p className="mt-4 leading-7 text-gray-300">
+              Tenha um perfil profissional, receba pedidos e construa a sua
+              reputação através das avaliações dos clientes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Rodapé */}
+      <footer className="border-t">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-gray-500 md:flex-row md:items-center md:justify-between">
+          <p>© 2026 OpenBrooks. Todos os direitos reservados.</p>
+
+          <div className="flex gap-5">
+            <a href="#" className="hover:text-gray-900">
+              Sobre
+            </a>
+            <a href="#" className="hover:text-gray-900">
+              Contacto
+            </a>
+            <a href="#" className="hover:text-gray-900">
+              Privacidade
+            </a>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
-}
+        }
